@@ -8,7 +8,10 @@ public class ContenderNameGenerator
     
     public static List<string> GenerateNames()
     {
-        List<string> contenderNames = (from fName in _firstName from sName in _lastName select fName + " " + sName).ToList();
+        var contenderNames = (
+            from fName in _firstName 
+            from sName in _lastName
+            select $"{fName} {sName}").ToList();
         return contenderNames;
     }
     
