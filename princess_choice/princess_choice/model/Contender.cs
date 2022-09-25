@@ -11,13 +11,10 @@ public class Contender
     /// <summary>
     /// Contender value, show how cool he is.
     /// </summary>
-    private readonly int  _value;
-
     public int Value { get; }
 
     public Contender(string name, int value)
     {
-        _value = value;
         _name = name;
         Value = value;
     }
