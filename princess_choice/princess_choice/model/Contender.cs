@@ -6,24 +6,23 @@ public class Contender
     /// Contender name, consist of first name and second name
     /// Name is unique.
     /// </summary>
-    private string _name;
+    private readonly string _name;
     
     /// <summary>
     /// Contender value, show how cool he is.
     /// </summary>
-    private int _value;
+    private readonly int  _value;
+
+    public int Value { get; }
 
     public Contender(string name, int value)
     {
         _value = value;
         _name = name;
+        Value = value;
     }
 
-    public int Value
-    {
-        get => _value;
-    }
-
+   
     public override string ToString()
     {
         return _name;
