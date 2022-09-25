@@ -6,7 +6,6 @@ using princess_choice;
     var hall = new Hall();
     var friend = new Friend();
     var princess = new Princess(friend, hall);
-    
     princess.ChoosePrince();
     var happiness = princess.CountHappy();
     
