@@ -3,17 +3,18 @@
 
 using princess_choice;
 
-    const int countContender = 100;
-    var hall = new Hall(countContender);
+    var hall = new Hall();
     var friend = new Friend();
     var princess = new Princess(friend, hall);
+    
+    princess.ChoosePrince();
     var happiness = princess.CountHappy();
     
     using(StreamWriter writetext = new StreamWriter("result.txt"))
     {
         foreach (var contender in friend.PassedContenders)
         {
-            writetext.WriteLine(contender);
+            writetext.WriteLine(contender + " " + contender.Value());
         }
         writetext.WriteLine("------------------------");
         writetext.WriteLine(happiness);
