@@ -15,4 +15,11 @@ public interface IFriend
     /// <returns>Returns true - if contender with the princess is better than last best contender,
     /// otherwise - return false</returns>
     bool IsCurrContenderBest(Contender currContender);
+
+    /// <summary>
+    /// Get contender value by name.
+    /// </summary>
+    /// <param name="contenderName"> Name of contender.</param>
+    /// <returns>Returns value of contender with specific name.</returns>
+    int GetContenderValue(string contenderName);
 }

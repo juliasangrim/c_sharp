@@ -35,7 +35,7 @@ public class Strategy : IStrategy
     /// </summary>
     /// <returns>Returns the best contender if he exist,
     /// otherwise return null.</returns>
-    public Contender? BestContender()
+    public String? BestContender()
     {
         var currContender = _hall.NextContender();
         while (currContender != null)
@@ -44,7 +44,7 @@ public class Strategy : IStrategy
                 && _friend.IsCurrContenderBest(currContender))
             {
                 _friend.AddPassedContender(currContender);
-                return currContender;
+                return currContender.Name;
             }
 
             _friend.AddPassedContender(currContender);

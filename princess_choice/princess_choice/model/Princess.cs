@@ -10,10 +10,16 @@ public class Princess
     /// <summary>
     /// The prince chosen by the princess
     /// </summary>
-    private Contender? _prince;
+    private String? _prince;
+
+    /// <summary>
+    /// The princess friend.    
+    /// </summary>
+    private IFriend _friend;
 
     public Princess(IFriend friend, IHall hall)
     {
+        _friend = friend;
         _strategy = new Strategy(friend, hall);
     }
 
@@ -36,8 +42,8 @@ public class Princess
     {
         var happiness = 10;
         if (_prince == null) return happiness;
-
-        happiness = _prince.Value() > IStrategy.MaxMatchScore / 2 ? _prince.Value() : 0;
+        var princeValue = _friend.GetContenderValue(_prince);
+        happiness = princeValue > IStrategy.MaxMatchScore / 2 ? princeValue : 0;
         return happiness;
     }
 }

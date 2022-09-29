@@ -13,7 +13,7 @@ using princess_choice;
     {
         foreach (var contender in friend.PassedContenders)
         {
-            writetext.WriteLine(contender + " " + contender.Value());
+            writetext.WriteLine(contender + " " + contender.Value);
         }
         writetext.WriteLine("------------------------");
         writetext.WriteLine(happiness);

@@ -25,7 +25,7 @@ public class Friend : IFriend
     public void AddPassedContender(Contender passedContender)
     {
         if (_lastBestContender == null ||
-            _lastBestContender.Value() < passedContender.Value())
+            _lastBestContender.Value < passedContender.Value)
         {
             _lastBestContender = passedContender;
         }
@@ -51,6 +51,25 @@ public class Friend : IFriend
             throw new ArgumentException("Contender not in list of passed contenders!");
         }
 
-        return _lastBestContender.Value() < currContender.Value();
+        return _lastBestContender.Value < currContender.Value;
+    }
+
+    /// <summary>
+    /// Get contender value by name.
+    /// </summary>
+    /// <param name="contenderName"> Name of contender.</param>
+    /// <returns>Returns value of contender with specific name.</returns>
+    /// <exception cref="ArgumentException">Throws when contender with that name not found.</exception>
+    public int GetContenderValue(string contenderName)
+    {
+        foreach (var contender in PassedContenders)
+        {
+            if (contender.Name == contenderName)
+            {
+                return contender.Value;
+            }
+        }
+
+        throw new ArgumentException("Friend doesn't now a prince with that name.");
     }
 }

@@ -9,5 +9,5 @@ public interface IStrategy
     /// </summary>
     /// <returns>Returns the best contender if he exist,
     /// otherwise return null.</returns>
-    Contender? BestContender();
+    String? BestContender();
 }
