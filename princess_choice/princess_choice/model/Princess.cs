@@ -10,7 +10,7 @@ public class Princess
     /// <summary>
     /// The prince chosen by the princess
     /// </summary>
-    private IContender? _prince;
+    private Contender? _prince;
 
     public Princess(IFriend friend, IHall hall)
     {

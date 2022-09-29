@@ -35,7 +35,7 @@ public class Strategy : IStrategy
     /// </summary>
     /// <returns>Returns the best contender if he exist,
     /// otherwise return null.</returns>
-    public IContender? BestContender()
+    public Contender? BestContender()
     {
         var currContender = _hall.NextContender();
         while (currContender != null)

@@ -5,16 +5,16 @@ public class Hall : IHall
     /// <summary>
     /// List of all waiting contenders.
     /// </summary>
-    private readonly List<IContender> _allContenders;
+    private readonly List<Contender> _allContenders;
 
     /// <summary>
     /// Enumerator for list of waiting contenders.
     /// </summary>
-    private List<IContender>.Enumerator _enumerator;
+    private List<Contender>.Enumerator _enumerator;
 
     public Hall()
     {
-        _allContenders = new List<IContender>();
+        _allContenders = new List<Contender>();
         var contenderNames = ContenderNameGenerator.GenerateNames();
         for (var i = 1; i <= contenderNames.Count; ++i)
         {
@@ -42,7 +42,7 @@ public class Hall : IHall
     /// Get next waiting contenders.
     /// </summary>
     /// <returns>Returns next waiting contender if exist, otherwise return null.</returns>
-    public IContender? NextContender()
+    public Contender? NextContender()
     {
         if (_enumerator.MoveNext())
         {

@@ -1,6 +1,6 @@
 ﻿namespace princess_choice;
 
-public class Contender : IContender
+public class Contender
 {
     /// <summary>
     /// Contender name, consist of first name and second name
