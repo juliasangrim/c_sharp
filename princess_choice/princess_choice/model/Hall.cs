@@ -5,7 +5,7 @@ public class Hall : IHall
     /// <summary>
     /// List of all waiting contenders.
     /// </summary>
-    private readonly List<Contender> _allContenders;
+    private List<Contender> _allContenders;
 
     /// <summary>
     /// Enumerator for list of waiting contenders.
@@ -31,11 +31,7 @@ public class Hall : IHall
     private void MixContenders()
     {
         var random = new Random(DateTime.Now.Millisecond);
-        for (int i = _allContenders.Count - 1; i >= 0; --i)
-        {
-            var randomIndex = random.Next(_allContenders.Count);
-            (_allContenders[i], _allContenders[randomIndex]) = (_allContenders[randomIndex], _allContenders[i]);
-        }
+        _allContenders = _allContenders.OrderBy(_ => random.Next()).ToList();
     }
 
     /// <summary>
