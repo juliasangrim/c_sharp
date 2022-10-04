@@ -1,4 +1,4 @@
-﻿namespace princess_choice;
+﻿namespace princess_choice.model;
 
 public class Friend : IFriend
 {

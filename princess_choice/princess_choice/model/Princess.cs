@@ -1,4 +1,6 @@
-﻿namespace princess_choice;
+﻿using princess_choice.strategy;
+
+namespace princess_choice.model;
 
 public class Princess
 {
@@ -8,18 +10,13 @@ public class Princess
     private readonly IStrategy _strategy;
 
     /// <summary>
-    /// The prince chosen by the princess
+    /// The hall, where prince wait date with princess.
     /// </summary>
-    private String? _prince;
-
-    /// <summary>
-    /// The princess friend.    
-    /// </summary>
-    private IFriend _friend;
+    private readonly IHall _hall;
 
     public Princess(IFriend friend, IHall hall)
     {
-        _friend = friend;
+        _hall = hall;
         _strategy = new Strategy(friend, hall);
     }
 
@@ -28,7 +25,7 @@ public class Princess
     /// </summary>
     public void ChoosePrince()
     {
-        _prince = _strategy.BestContender();
+        _strategy.BestContender();
     }
 
     /// <summary>
@@ -41,9 +38,13 @@ public class Princess
     public int CountHappy()
     {
         var happiness = 10;
-        if (_prince == null) return happiness;
-        var princeValue = _friend.GetContenderValue(_prince);
-        happiness = princeValue > IStrategy.MaxMatchScore / 2 ? princeValue : 0;
+        if (_strategy.BestContenderValue() == null)
+        {
+            return happiness;
+        }
+
+        var princeValue = _strategy.BestContenderValue()!.Value;
+        happiness = princeValue > _hall.CountContender() / 2 ? princeValue : 0;
         return happiness;
     }
 }

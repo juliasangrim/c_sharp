@@ -2,8 +2,9 @@
 
 
 using princess_choice;
+using princess_choice.model;
 
-    var hall = new Hall();
+var hall = new Hall();
     var friend = new Friend();
     var princess = new Princess(friend, hall);
     princess.ChoosePrince();

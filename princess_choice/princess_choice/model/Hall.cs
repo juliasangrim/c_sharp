@@ -1,4 +1,6 @@
-﻿namespace princess_choice;
+﻿using princess_choice.generator;
+
+namespace princess_choice.model;
 
 public class Hall : IHall
 {

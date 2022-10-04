@@ -1,4 +1,6 @@
-﻿namespace princess_choice;
+﻿using princess_choice.model;
+
+namespace princess_choice.strategy;
 
 public class Strategy : IStrategy
 {
@@ -11,6 +13,11 @@ public class Strategy : IStrategy
     /// Place, where all prince-contenders waiting for a meeting with princess.
     /// </summary>
     private readonly IHall _hall;
+
+    /// <summary>
+    /// the best prince for princess.
+    /// </summary>
+    private Contender? _bestContender;
 
     /// <summary>
     /// Counter of passed contenders.
@@ -28,6 +35,7 @@ public class Strategy : IStrategy
         _friend = friend;
         _contenderCount = 0;
         _bound = (int)(hall.CountContender() / Math.E);
+        _bestContender = null;
     }
 
     /// <summary>
@@ -35,7 +43,7 @@ public class Strategy : IStrategy
     /// </summary>
     /// <returns>Returns the best contender if he exist,
     /// otherwise return null.</returns>
-    public String? BestContender()
+    public void BestContender()
     {
         var currContender = _hall.NextContender();
         while (currContender != null)
@@ -44,14 +52,23 @@ public class Strategy : IStrategy
                 && _friend.IsCurrContenderBest(currContender))
             {
                 _friend.AddPassedContender(currContender);
-                return currContender.Name;
+                _bestContender = currContender;
+                return;
             }
 
             _friend.AddPassedContender(currContender);
             currContender = _hall.NextContender();
             _contenderCount++;
         }
-
-        return null;
+    }
+    
+    /// <summary>
+    /// Get best contender value;
+    /// </summary>
+    /// <returns>Returns best contender value, if he exist,
+    /// otherwise return null.</returns>
+    public int? BestContenderValue()
+    {
+        return _bestContender?.Value;
     }
 }
