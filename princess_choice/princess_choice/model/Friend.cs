@@ -46,11 +46,6 @@ public class Friend : IFriend
             return true;
         }
 
-        if (!PassedContenders.Contains(_lastBestContender))
-        {
-            throw new ArgumentException("Contender not in list of passed contenders!");
-        }
-
         return _lastBestContender.Value < currContender.Value;
     }
 
