@@ -13,4 +13,9 @@ public interface IHall
     /// </summary>
     /// <returns>Returns amount of contenders in list.</returns>
     int CountContender();
+
+    /// <summary>
+    /// Generate new group of 100 contenders.
+    /// </summary>
+    void CallNextGroup();
 }

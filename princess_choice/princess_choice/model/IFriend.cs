@@ -17,9 +17,10 @@ public interface IFriend
     bool IsCurrContenderBest(Contender currContender);
 
     /// <summary>
-    /// Get contender value by name.
+    /// Friend track, who from passed contenders are best. This method allow you to remember contender if he better than other
+    /// passed contenders.
     /// </summary>
-    /// <param name="contenderName"> Name of contender.</param>
-    /// <returns>Returns value of contender with specific name.</returns>
-    int GetContenderValue(string contenderName);
+    /// <param name="currContender">Contender, whom we want to remember.</param>
+    /// <exception cref="ArgumentException">Throws when contender with that name not found.</exception>
+    void RememberContenderIfBest(Contender currContender);
 }

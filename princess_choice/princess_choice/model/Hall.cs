@@ -17,13 +17,6 @@ public class Hall : IHall
     public Hall()
     {
         _allContenders = new List<Contender>();
-        var contenderNames = ContenderNameGenerator.GenerateNames();
-        for (var i = 1; i <= contenderNames.Count; ++i)
-        {
-            _allContenders.Add(new Contender(contenderNames[i - 1], i));
-        }
-
-        MixContenders();
         _enumerator = _allContenders.GetEnumerator();
     }
 
@@ -34,6 +27,21 @@ public class Hall : IHall
     {
         var random = new Random(DateTime.Now.Millisecond);
         _allContenders = _allContenders.OrderBy(_ => random.Next()).ToList();
+    }
+
+    /// <summary>
+    /// Generate new group of 100 contenders.
+    /// </summary>
+    public void CallNextGroup()
+    {
+        var contenderNames = ContenderNameGenerator.GenerateNames();
+        for (var i = 1; i <= contenderNames.Count; ++i)
+        {
+            _allContenders.Add(new Contender(contenderNames[i - 1], i));
+        }
+        
+        MixContenders();
+        _enumerator = _allContenders.GetEnumerator();
     }
 
     /// <summary>

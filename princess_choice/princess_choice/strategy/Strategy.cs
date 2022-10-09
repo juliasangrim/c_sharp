@@ -34,7 +34,7 @@ public class Strategy : IStrategy
         _hall = hall;
         _friend = friend;
         _contenderCount = 0;
-        _bound = (int)(hall.CountContender() / Math.E);
+        _bound = 0;
         _bestContender = null;
     }
 
@@ -45,23 +45,24 @@ public class Strategy : IStrategy
     /// otherwise return null.</returns>
     public void BestContender()
     {
+        _bound = (int)(_hall.CountContender() / Math.E);
         var currContender = _hall.NextContender();
         while (currContender != null)
         {
+            _friend.AddPassedContender(currContender);
             if (_contenderCount >= _bound
                 && _friend.IsCurrContenderBest(currContender))
             {
-                _friend.AddPassedContender(currContender);
                 _bestContender = currContender;
                 return;
             }
 
-            _friend.AddPassedContender(currContender);
+            _friend.RememberContenderIfBest(currContender);
             currContender = _hall.NextContender();
             _contenderCount++;
         }
     }
-    
+
     /// <summary>
     /// Get best contender value;
     /// </summary>

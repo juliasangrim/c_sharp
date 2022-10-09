@@ -18,6 +18,5 @@ public class ContenderNameGenerator
             from sName in _lastNames
             select $"{fName} {sName}").ToList();
         return contenderNames;
-    }   
-    
+    }
 }

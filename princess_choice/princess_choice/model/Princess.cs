@@ -25,6 +25,7 @@ public class Princess
     /// </summary>
     public void ChoosePrince()
     {
+        _hall.CallNextGroup();
         _strategy.BestContender();
     }
 

@@ -24,12 +24,6 @@ public class Friend : IFriend
     /// <param name="passedContender"> Contender rejected by the princess.</param>
     public void AddPassedContender(Contender passedContender)
     {
-        if (_lastBestContender == null ||
-            _lastBestContender.Value < passedContender.Value)
-        {
-            _lastBestContender = passedContender;
-        }
-
         PassedContenders.Add(passedContender);
     }
 
@@ -41,30 +35,27 @@ public class Friend : IFriend
     /// otherwise - return false</returns>
     public bool IsCurrContenderBest(Contender currContender)
     {
-        if (_lastBestContender == null)
-        {
-            return true;
-        }
+        if (!PassedContenders.Contains(currContender))
+            throw new ArgumentException("Current contender not visited princess!");
 
-        return _lastBestContender.Value < currContender.Value;
+        return _lastBestContender == null ||
+               _lastBestContender.Value < currContender.Value;
     }
 
     /// <summary>
-    /// Get contender value by name.
+    /// Friend track, who from passed contenders are best. This method allow you to remember contender if he better than other
+    /// passed contenders.
     /// </summary>
-    /// <param name="contenderName"> Name of contender.</param>
-    /// <returns>Returns value of contender with specific name.</returns>
+    /// <param name="currContender">Contender, whom we want to remember.</param>
     /// <exception cref="ArgumentException">Throws when contender with that name not found.</exception>
-    public int GetContenderValue(string contenderName)
+    public void RememberContenderIfBest(Contender currContender)
     {
-        foreach (var contender in PassedContenders)
+        if (!PassedContenders.Contains(currContender))
+            throw new ArgumentException("Current contender not visited princess!");
+        if (_lastBestContender == null ||
+            _lastBestContender.Value < currContender.Value)
         {
-            if (contender.Name == contenderName)
-            {
-                return contender.Value;
-            }
+            _lastBestContender = currContender;
         }
-
-        throw new ArgumentException("Friend doesn't now a prince with that name.");
     }
 }

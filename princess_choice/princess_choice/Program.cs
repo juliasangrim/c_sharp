@@ -1,12 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-
-using princess_choice;
 using princess_choice.model;
 
 var hall = new Hall();
     var friend = new Friend();
     var princess = new Princess(friend, hall);
+try
+{
     princess.ChoosePrince();
     var happiness = princess.CountHappy();
     
@@ -14,8 +14,13 @@ var hall = new Hall();
     {
         foreach (var contender in friend.PassedContenders)
         {
-            writetext.WriteLine(contender + " " + contender.Value);
+            writetext.WriteLine($"{contender} {contender.Value}");
         }
         writetext.WriteLine("------------------------");
         writetext.WriteLine(happiness);
     }
+}
+catch (Exception e)
+{
+    Console.WriteLine(e);
+}
