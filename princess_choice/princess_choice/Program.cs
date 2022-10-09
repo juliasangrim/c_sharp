@@ -1,26 +1,35 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using princess_choice.generator;
 using princess_choice.model;
+using princess_choice.writer;
 
-var hall = new Hall();
-    var friend = new Friend();
-    var princess = new Princess(friend, hall);
-try
+class Program
+
 {
-    princess.ChoosePrince();
-    var happiness = princess.CountHappy();
-    
-    using(StreamWriter writetext = new StreamWriter("result.txt"))
+    public static void Main(string[] args)
     {
-        foreach (var contender in friend.PassedContenders)
-        {
-            writetext.WriteLine($"{contender} {contender.Value}");
-        }
-        writetext.WriteLine("------------------------");
-        writetext.WriteLine(happiness);
+        CreateHostBuilder(args).Build().Run();
     }
-}
-catch (Exception e)
-{
-    Console.WriteLine(e);
+    
+    private static IHostBuilder CreateHostBuilder(string[] args)
+
+    {
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureServices((hostContext, services) =>
+
+            {
+                services.AddScoped<ContenderNameGenerator>();
+
+                services.AddScoped<IWriter, ContenderWriter>();
+                
+                services.AddHostedService<Princess>();
+
+                services.AddScoped<IHall, Hall>();
+
+                services.AddScoped<IFriend, Friend>();
+            });
+    }
 }

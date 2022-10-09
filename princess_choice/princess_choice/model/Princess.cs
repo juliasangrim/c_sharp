@@ -1,8 +1,11 @@
-﻿using princess_choice.strategy;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using princess_choice.strategy;
+using princess_choice.writer;
 
 namespace princess_choice.model;
 
-public class Princess
+public class Princess : IHostedService
 {
     /// <summary>
     /// Princess choose strategy  
@@ -14,10 +17,18 @@ public class Princess
     /// </summary>
     private readonly IHall _hall;
 
-    public Princess(IFriend friend, IHall hall)
+    private IHostApplicationLifetime _lifetime;
+    private ILogger<Princess> _logger;
+
+    private IWriter _writer;
+
+    public Princess(IFriend friend, IHall hall, IWriter writer, IHostApplicationLifetime lifetime, ILogger<Princess> logger)
     {
         _hall = hall;
-        _strategy = new Strategy(friend, hall);
+        _writer = writer;
+        _lifetime = lifetime;
+        _logger = logger;
+        _strategy = new Strategy(friend, hall, writer);
     }
 
     /// <summary>
@@ -47,5 +58,36 @@ public class Princess
         var princeValue = _strategy.BestContenderValue()!.Value;
         happiness = princeValue > _hall.CountContender() / 2 ? princeValue : 0;
         return happiness;
+    }
+
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        _lifetime.ApplicationStarted.Register(() =>
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    ChoosePrince();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Unhandled exception!");
+                }
+                finally
+                {
+                    _lifetime.StopApplication();
+                }
+            }, cancellationToken);
+        });
+        return Task.CompletedTask;
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        var happiness = CountHappy();
+        _writer.Write("-------------------------------------");
+        _writer.Write(happiness.ToString());
+        return Task.CompletedTask;
     }
 }
