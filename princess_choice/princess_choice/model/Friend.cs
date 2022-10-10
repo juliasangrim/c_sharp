@@ -19,6 +19,17 @@ public class Friend : IFriend
     }
 
     /// <summary>
+    /// Checked if contender visited princess or not.
+    /// </summary>
+    /// <param name="contender">Contender we are checking.</param>
+    /// <returns>Returns true, if contender visited princess, false - otherwise.</returns>
+    private bool IsContenderPassed(Contender contender)
+    {
+        return PassedContenders.Any(passedContender =>
+            passedContender.Name == contender.Name & passedContender.Value == contender.Value);
+    }
+
+    /// <summary>
     /// Add contender in list of passed contenders and choose the best of them.
     /// </summary>
     /// <param name="passedContender"> Contender rejected by the princess.</param>
@@ -35,7 +46,7 @@ public class Friend : IFriend
     /// otherwise - return false</returns>
     public bool IsCurrContenderBest(Contender currContender)
     {
-        if (!PassedContenders.Contains(currContender))
+        if (!IsContenderPassed(currContender))
             throw new ArgumentException("Current contender not visited princess!");
 
         return _lastBestContender == null ||
@@ -50,7 +61,7 @@ public class Friend : IFriend
     /// <exception cref="ArgumentException">Throws when contender with that name not found.</exception>
     public void RememberContenderIfBest(Contender currContender)
     {
-        if (!PassedContenders.Contains(currContender))
+        if (!IsContenderPassed(currContender))
             throw new ArgumentException("Current contender not visited princess!");
         if (_lastBestContender == null ||
             _lastBestContender.Value < currContender.Value)
