@@ -21,5 +21,4 @@ public class ContenderWriter : IWriter
         using var output = new StreamWriter(_fileName, true);
         output.WriteLine(content);
     }
-    
 }
