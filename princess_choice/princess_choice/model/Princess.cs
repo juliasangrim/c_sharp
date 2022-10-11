@@ -16,10 +16,17 @@ public class Princess : IHostedService
     /// The hall, where prince wait date with princess.
     /// </summary>
     private readonly IHall _hall;
-
+    
     private IHostApplicationLifetime _lifetime;
+    
+    /// <summary>
+    /// Logger.
+    /// </summary>
     private ILogger<Princess> _logger;
-
+    
+    /// <summary>
+    /// Service for write content in file.
+    /// </summary>
     private IWriter _writer;
 
     public Princess(IFriend friend, IHall hall, IWriter writer, IHostApplicationLifetime lifetime, ILogger<Princess> logger)
