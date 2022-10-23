@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using princess_choice.strategy;
-using princess_choice.writer;
+using PrincessChoice.Strategy;
+using PrincessChoice.Writer;
 
-namespace princess_choice.model;
+namespace PrincessChoice.Model;
 
 public class Princess : IHostedService
 {
@@ -16,26 +16,27 @@ public class Princess : IHostedService
     /// The hall, where prince wait date with princess.
     /// </summary>
     private readonly IHall _hall;
-    
+
     private IHostApplicationLifetime _lifetime;
-    
+
     /// <summary>
     /// Logger.
     /// </summary>
     private ILogger<Princess> _logger;
-    
+
     /// <summary>
     /// Service for write content in file.
     /// </summary>
-    private IWriter _writer;
+    private readonly IWriter _writer;
 
-    public Princess(IFriend friend, IHall hall, IWriter writer, IHostApplicationLifetime lifetime, ILogger<Princess> logger)
+    public Princess(IHall hall, IWriter writer, IStrategy strategy,
+        IHostApplicationLifetime lifetime, ILogger<Princess> logger)
     {
         _hall = hall;
         _writer = writer;
         _lifetime = lifetime;
         _logger = logger;
-        _strategy = new Strategy(friend, hall, writer);
+        _strategy = strategy;
     }
 
     /// <summary>
@@ -75,7 +76,11 @@ public class Princess : IHostedService
             {
                 try
                 {
+                    _writer.Delete();
                     ChoosePrince();
+                    var happiness = CountHappy();
+                    _writer.Write("-------------------------------------");
+                    _writer.Write(happiness.ToString());
                 }
                 catch (Exception ex)
                 {
@@ -92,9 +97,6 @@ public class Princess : IHostedService
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        var happiness = CountHappy();
-        _writer.Write("-------------------------------------");
-        _writer.Write(happiness.ToString());
         return Task.CompletedTask;
     }
 }

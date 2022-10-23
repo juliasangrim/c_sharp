@@ -2,9 +2,9 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using princess_choice.generator;
-using princess_choice.model;
-using princess_choice.writer;
+using PrincessChoice.Model;
+using PrincessChoice.Strategy;
+using PrincessChoice.Writer;
 
 class Program
 {
@@ -14,17 +14,15 @@ class Program
     }
 
     private static IHostBuilder CreateHostBuilder(string[] args)
-
     {
         return Host.CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) =>
-
+            .ConfigureServices((_, services) =>
             {
-                services.AddScoped<ContenderNameGenerator>();
+                services.AddHostedService<Princess>();
+
+                services.AddScoped<IStrategy, OptimalStrategy>();
 
                 services.AddScoped<IWriter, ContenderWriter>();
-
-                services.AddHostedService<Princess>();
 
                 services.AddScoped<IHall, Hall>();
 

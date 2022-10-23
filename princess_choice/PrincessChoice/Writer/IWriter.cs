@@ -1,4 +1,4 @@
-﻿namespace princess_choice.writer;
+﻿namespace PrincessChoice.Writer;
 
 public interface IWriter
 {
@@ -7,4 +7,9 @@ public interface IWriter
     /// </summary>
     /// <param name="content">Content you want write.</param>
     void Write(string content);
+
+    /// <summary>
+    /// Delete file with name, set up in appsettings.json.
+    /// </summary>
+    void Delete();
 }

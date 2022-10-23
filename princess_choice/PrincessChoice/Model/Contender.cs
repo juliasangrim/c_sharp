@@ -1,4 +1,4 @@
-﻿namespace princess_choice.model;
+﻿namespace PrincessChoice.Model;
 
 public class Contender
 {
