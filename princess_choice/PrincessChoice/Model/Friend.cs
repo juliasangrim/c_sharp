@@ -5,16 +5,16 @@ public class Friend : IFriend
     /// <summary>
     /// The best contender of all passed contenders.
     /// </summary>
-    private Contender? _lastBestContender;
+    public Contender? LastBestContender { get; set; }
 
     /// <summary>
     /// The list of passed contenders.
     /// </summary>
-    public List<Contender> PassedContenders { get; }
+    private List<Contender> PassedContenders { get; }
 
     public Friend()
     {
-        _lastBestContender = null;
+        LastBestContender = null;
         PassedContenders = new List<Contender>();
     }
 
@@ -49,8 +49,8 @@ public class Friend : IFriend
         if (!IsContenderPassed(currContender))
             throw new ArgumentException("Current contender not visited princess!");
 
-        return _lastBestContender == null ||
-               _lastBestContender.Value < currContender.Value;
+        return LastBestContender == null ||
+               LastBestContender.Value < currContender.Value;
     }
 
     /// <summary>
@@ -63,10 +63,10 @@ public class Friend : IFriend
     {
         if (!IsContenderPassed(currContender))
             throw new ArgumentException("Current contender not visited princess!");
-        if (_lastBestContender == null ||
-            _lastBestContender.Value < currContender.Value)
+        if (LastBestContender == null ||
+            LastBestContender.Value < currContender.Value)
         {
-            _lastBestContender = currContender;
+            LastBestContender = currContender;
         }
     }
 }
