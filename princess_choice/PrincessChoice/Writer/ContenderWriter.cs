@@ -26,7 +26,7 @@ public class ContenderWriter : IWriter
     }
 
     /// <summary>
-    /// Delete file with name.
+    /// Delete file.
     /// </summary>
     public void Delete()
     {

@@ -9,7 +9,7 @@ public interface IWriter
     void Write(string content);
 
     /// <summary>
-    /// Delete file with name, set up in appsettings.json.
+    /// Delete file.
     /// </summary>
     void Delete();
 }
