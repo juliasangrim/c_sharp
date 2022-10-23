@@ -13,6 +13,10 @@ public class ContenderWriter : IWriter
     public ContenderWriter(IConfiguration config)
     {
         _fileName = config.GetValue<string>("Writer:Name");
+        if (string.IsNullOrEmpty(_fileName) || string.IsNullOrWhiteSpace(_fileName))
+        {
+            throw new ArgumentException("File name invalid.");
+        }
     }
     
     /// <summary>
@@ -21,7 +25,7 @@ public class ContenderWriter : IWriter
     /// <param name="content">Content you want write in file.</param>
     public void Write(string content)
     {
-        using var output = new StreamWriter(_fileName ?? throw new NullReferenceException(), true);
+        using var output = new StreamWriter(_fileName, true);
         output.WriteLine(content);
     }
 
@@ -30,6 +34,6 @@ public class ContenderWriter : IWriter
     /// </summary>
     public void Delete()
     {
-        File.Delete(_fileName ?? throw new NullReferenceException());
+        File.Delete(_fileName);
     }
 }

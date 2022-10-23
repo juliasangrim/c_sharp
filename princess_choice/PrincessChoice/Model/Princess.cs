@@ -7,6 +7,8 @@ namespace PrincessChoice.Model;
 
 public class Princess : IHostedService
 {
+    private const int HappinessIfAlone = 10; 
+    
     /// <summary>
     /// Princess choose strategy  
     /// </summary>
@@ -57,7 +59,7 @@ public class Princess : IHostedService
     /// 2nd good prince ... 50th best prince. </returns>
     public int CountHappy()
     {
-        var happiness = 10;
+        var happiness = HappinessIfAlone;
         if (_strategy.BestContenderValue() == null)
         {
             return happiness;
