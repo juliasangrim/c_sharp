@@ -13,7 +13,7 @@ public class ContenderWriter : IWriter
     public ContenderWriter(IConfiguration config)
     {
         _fileName = config.GetValue<string>("Writer:Name");
-        if (string.IsNullOrEmpty(_fileName) || string.IsNullOrWhiteSpace(_fileName))
+        if (string.IsNullOrWhiteSpace(_fileName))
         {
             throw new ArgumentException("File name invalid.");
         }
