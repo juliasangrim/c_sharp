@@ -1,4 +1,4 @@
-﻿namespace princess_choice.strategy;
+﻿namespace PrincessChoice.Strategy;
 
 public interface IStrategy
 {

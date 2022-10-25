@@ -1,8 +1,9 @@
-﻿using princess_choice.model;
+﻿using PrincessChoice.Model;
+using PrincessChoice.Writer;
 
-namespace princess_choice.strategy;
+namespace PrincessChoice.Strategy;
 
-public class Strategy : IStrategy
+public class OptimalStrategy : IStrategy
 {
     /// <summary>
     /// The friend of princess. Helps the princess choose her best prince.
@@ -29,9 +30,12 @@ public class Strategy : IStrategy
     /// </summary>
     private int _bound;
 
-    public Strategy(IFriend friend, IHall hall)
+    private readonly IWriter _writer;
+
+    public OptimalStrategy(IFriend friend, IHall hall, IWriter writer)
     {
         _hall = hall;
+        _writer = writer;
         _friend = friend;
         _contenderCount = 0;
         _bound = 0;
@@ -50,6 +54,7 @@ public class Strategy : IStrategy
         while (currContender != null)
         {
             _friend.AddPassedContender(currContender);
+            _writer.Write($"{currContender.Name} {currContender.Value}");
             if (_contenderCount >= _bound
                 && _friend.IsCurrContenderBest(currContender))
             {
