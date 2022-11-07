@@ -5,10 +5,16 @@ namespace PrincessChoiceTest;
 
 public class HallTest
 {
-    private readonly IHall _testHall = new Hall();
+    private IHall _testHall;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _testHall = new Hall();
+    }
 
     [Test]
-    public void CallNextContender_CorrectCall()
+    public void CallNextContender_NotNull()
     {
         _testHall.CallNextGroup();
         _testHall.NextContender().Should().NotBeNull();

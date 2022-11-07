@@ -5,17 +5,17 @@ public class Friend : IFriend
     /// <summary>
     /// The best contender of all passed contenders.
     /// </summary>
-    public Contender? LastBestContender { get; set; }
+    private Contender? _lastBestContender;
 
     /// <summary>
     /// The list of passed contenders.
     /// </summary>
-    private List<Contender> PassedContenders { get; }
+    private readonly List<Contender> _passedContenders;
 
     public Friend()
     {
-        LastBestContender = null;
-        PassedContenders = new List<Contender>();
+        _lastBestContender = null;
+        _passedContenders = new List<Contender>();
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ public class Friend : IFriend
     /// <returns>Returns true, if contender visited princess, false - otherwise.</returns>
     private bool IsContenderPassed(Contender contender)
     {
-        return PassedContenders.Any(passedContender =>
+        return _passedContenders.Any(passedContender =>
             passedContender.Name == contender.Name & passedContender.Value == contender.Value);
     }
 
@@ -35,7 +35,7 @@ public class Friend : IFriend
     /// <param name="passedContender"> Contender rejected by the princess.</param>
     public void AddPassedContender(Contender passedContender)
     {
-        PassedContenders.Add(passedContender);
+        _passedContenders.Add(passedContender);
     }
 
     /// <summary>
@@ -49,8 +49,8 @@ public class Friend : IFriend
         if (!IsContenderPassed(currContender))
             throw new ArgumentException("Current contender not visited princess!");
 
-        return LastBestContender == null ||
-               LastBestContender.Value < currContender.Value;
+        return _lastBestContender == null ||
+               _lastBestContender.Value < currContender.Value;
     }
 
     /// <summary>
@@ -63,10 +63,10 @@ public class Friend : IFriend
     {
         if (!IsContenderPassed(currContender))
             throw new ArgumentException("Current contender not visited princess!");
-        if (LastBestContender == null ||
-            LastBestContender.Value < currContender.Value)
+        if (_lastBestContender == null ||
+            _lastBestContender.Value < currContender.Value)
         {
-            LastBestContender = currContender;
+            _lastBestContender = currContender;
         }
     }
 }

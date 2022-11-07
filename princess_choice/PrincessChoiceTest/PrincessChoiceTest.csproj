@@ -6,7 +6,6 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
-
         <RootNamespace>PrincessChoiceTest</RootNamespace>
     </PropertyGroup>
 
@@ -22,6 +21,25 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PrincessChoice\PrincessChoice.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="bin" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="PrincessResource.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>PrincessResource.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="PrincessResource.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>PrincessResource.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
