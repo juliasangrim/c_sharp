@@ -10,12 +10,12 @@ public class Friend : IFriend
     /// <summary>
     /// The list of passed contenders.
     /// </summary>
-    public List<Contender> PassedContenders { get; }
+    private readonly List<Contender> _passedContenders;
 
     public Friend()
     {
         _lastBestContender = null;
-        PassedContenders = new List<Contender>();
+        _passedContenders = new List<Contender>();
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ public class Friend : IFriend
     /// <returns>Returns true, if contender visited princess, false - otherwise.</returns>
     private bool IsContenderPassed(Contender contender)
     {
-        return PassedContenders.Any(passedContender =>
+        return _passedContenders.Any(passedContender =>
             passedContender.Name == contender.Name & passedContender.Value == contender.Value);
     }
 
@@ -35,7 +35,7 @@ public class Friend : IFriend
     /// <param name="passedContender"> Contender rejected by the princess.</param>
     public void AddPassedContender(Contender passedContender)
     {
-        PassedContenders.Add(passedContender);
+        _passedContenders.Add(passedContender);
     }
 
     /// <summary>
