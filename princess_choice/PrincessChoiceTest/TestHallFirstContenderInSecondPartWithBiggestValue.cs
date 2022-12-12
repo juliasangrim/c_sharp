@@ -1,23 +1,22 @@
-using PrincessChoice.Generator;
 using PrincessChoice.Model;
 
 namespace PrincessChoiceTest;
 
 public class TestHallFirstContenderInSecondPartWithBiggestValue : Hall
 {
-    public override void CallNextGroup()
+    public override void CallNextGroup(string? attemptName)
     {
-        var contenderNames = ContenderNameGenerator.GenerateNames();
-        for (var i = 1; i <= contenderNames.Count; ++i)
+        var contenderCount = int.Parse(PrincessResource.ContenderCount);
+        for (var i = 1; i <= contenderCount; ++i)
         {
-            _allContenders.Add(new Contender(contenderNames[i - 1], i));
+            _allContenders.Add(new Contender(i.ToString(), i));
         }
 
-        var bound = (int)(contenderNames.Count / Math.E);
+        var bound = (int)(contenderCount / Math.E);
         var contenderWithBiggestValueIndex =
-            _allContenders.FindIndex(0, contender => contender.Value == contenderNames.Count);
-        
-        (_allContenders[contenderWithBiggestValueIndex], _allContenders[bound]) = 
+            _allContenders.FindIndex(0, contender => contender.Value == contenderCount);
+
+        (_allContenders[contenderWithBiggestValueIndex], _allContenders[bound]) =
             (_allContenders[bound], _allContenders[contenderWithBiggestValueIndex]);
         _enumerator = _allContenders.GetEnumerator();
     }

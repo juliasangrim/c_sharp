@@ -1,8 +1,10 @@
-﻿using PrincessChoice.Generator;
+using Microsoft.EntityFrameworkCore;
+using PrincessChoice.Context;
+using PrincessChoice.Mapper;
 
 namespace PrincessChoice.Model;
 
-public class Hall : IHall
+public class HallDb : IHall
 {
     /// <summary>
     /// List of all waiting contenders.
@@ -14,8 +16,14 @@ public class Hall : IHall
     /// </summary>
     protected List<Contender>.Enumerator _enumerator;
 
-    public Hall()
+    /// <summary>
+    /// Connection to PostgresDB.
+    /// </summary>
+    private PostgresDbContext _postgresDb;
+
+    public HallDb(PostgresDbContext postgresDb)
     {
+        _postgresDb = postgresDb;
         _allContenders = new List<Contender>();
         _enumerator = _allContenders.GetEnumerator();
     }
@@ -23,9 +31,24 @@ public class Hall : IHall
     /// <summary>
     /// Generate new group of 100 contenders.
     /// </summary>
-    public virtual void CallNextGroup(string? attemptName)
+    public void CallNextGroup(string? attemptName)
     {
-        _allContenders = ContenderGenerator.GenerateContenders();
+        if (attemptName != null)
+        {
+            var princeAttemptEntity = _postgresDb.PrinceAttempt
+                .Include(c => c.Contenders)
+                .FirstOrDefault(a => a.AttemptName == attemptName);
+            if (princeAttemptEntity == null)
+            {
+                throw new ArgumentException($"No attempt in db with this name: {attemptName}!");
+            }
+
+            _allContenders = ContendersListMapper.Map(princeAttemptEntity.Contenders);
+        }
+        else
+        {
+            throw new ArgumentException("Attempt name should be not null!");
+        }
         _enumerator = _allContenders.GetEnumerator();
     }
 

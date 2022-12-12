@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrincessChoice", "PrincessChoice\PrincessChoice.csproj", "{83133931-85BE-413B-9BD6-6506CF11D2F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrincessChoiceTest", "PrincessChoiceTest\PrincessChoiceTest.csproj", "{361094FF-96C0-461E-B716-9845BAC23113}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE436F04-66C5-41AA-AB3D-5328E7930A13} = {CE436F04-66C5-41AA-AB3D-5328E7930A13}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttemptGenerator", "AttemptGenerator\AttemptGenerator.csproj", "{CE436F04-66C5-41AA-AB3D-5328E7930A13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{83133931-85BE-413B-9BD6-6506CF11D2F7} = {83133931-85BE-413B-9BD6-6506CF11D2F7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +26,9 @@ Global
 		{361094FF-96C0-461E-B716-9845BAC23113}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{361094FF-96C0-461E-B716-9845BAC23113}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{361094FF-96C0-461E-B716-9845BAC23113}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE436F04-66C5-41AA-AB3D-5328E7930A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE436F04-66C5-41AA-AB3D-5328E7930A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE436F04-66C5-41AA-AB3D-5328E7930A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE436F04-66C5-41AA-AB3D-5328E7930A13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

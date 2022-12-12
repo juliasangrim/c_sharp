@@ -16,7 +16,7 @@ public class HallTest
     [Test]
     public void CallNextContender_NotNull()
     {
-        _testHall.CallNextGroup();
+        _testHall.CallNextGroup(null);
         _testHall.NextContender().Should().NotBeNull();
     }
 

@@ -1,18 +1,14 @@
 ﻿using FluentAssertions;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using PrincessChoice.Model;
 using PrincessChoice.Strategy;
-using PrincessChoice.Writer;
 
 namespace PrincessChoiceTest;
 
 public class PrincessTest
 {
     private IFriend _friend;
-    private IWriter _writer = Substitute.For<IWriter>();
-    private readonly IHostApplicationLifetime _lifetime = Substitute.For<IHostApplicationLifetime>();
     private readonly ILogger<Princess> _logger = Substitute.For<ILogger<Princess>>();
 
     [SetUp]
@@ -30,10 +26,9 @@ public class PrincessTest
     public void ChoosePrince_FirstContenderInSecondPartWithValueLessThan50_PrincessUnhappy()
     {
         var testHall = new TestHallAscending();
-        var strategy = new OptimalStrategy(_friend, testHall, _writer);
-        var princess = new Princess(testHall, _writer, strategy, _lifetime, _logger);
-        princess.ChoosePrince();
-        princess.CountHappy().Should().Be(0);
+        var strategy = new OptimalStrategy(_friend, testHall);
+        var princess = new Princess(testHall, strategy, _logger);
+        princess.CountHappy(null).Should().Be(0);
     }
 
     /// <summary>
@@ -46,10 +41,9 @@ public class PrincessTest
     public void ChooseContender_BestContenderInFirstPart_PrincessHappyAlone()
     {
         var testHall = new TestHallDescending();
-        var strategy = new OptimalStrategy(_friend, testHall, _writer);
-        var princess = new Princess(testHall, _writer, strategy, _lifetime, _logger);
-        princess.ChoosePrince();
-        princess.CountHappy().Should().Be(10);
+        var strategy = new OptimalStrategy(_friend, testHall);
+        var princess = new Princess(testHall, strategy, _logger);
+        princess.CountHappy("null").Should().Be(10);
     }
 
     /// <summary>
@@ -61,9 +55,8 @@ public class PrincessTest
     public void ChooseContender_FirstContenderInSecondPartWithValueBiggerThan50_PrincessHappy()
     {
         var testHall = new TestHallFirstContenderInSecondPartWithBiggestValue();
-        var strategy = new OptimalStrategy(_friend, testHall, _writer);
-        var princess = new Princess(testHall, _writer, strategy, _lifetime, _logger);
-        princess.ChoosePrince();
-        princess.CountHappy().Should().Be(100);
+        var strategy = new OptimalStrategy(_friend, testHall);
+        var princess = new Princess(testHall, strategy, _logger);
+        princess.CountHappy(null).Should().Be(100);
     }
 }

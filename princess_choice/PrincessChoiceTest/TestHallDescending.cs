@@ -1,16 +1,15 @@
-using PrincessChoice.Generator;
 using PrincessChoice.Model;
 
 namespace PrincessChoiceTest;
 
 public class TestHallDescending : Hall
 {
-    public override void CallNextGroup()
+    public override void CallNextGroup(string? attemptName)
     {
-        var contenderNames = ContenderNameGenerator.GenerateNames();
-        for (var i = contenderNames.Count; i >= 1; --i)
+        var contenderCount = int.Parse(PrincessResource.ContenderCount);
+        for (var i = contenderCount; i >= 1; --i)
         {
-            _allContenders.Add(new Contender(contenderNames[i - 1], i));
+            _allContenders.Add(new Contender(i.ToString(), i));
         }
 
         _enumerator = _allContenders.GetEnumerator();

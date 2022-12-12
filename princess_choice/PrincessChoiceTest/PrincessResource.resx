@@ -17,7 +17,22 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
+    <data name="AttemptName" xml:space="preserve">
+        <value>MyAttemptName</value>
+    </data>
     <data name="NotVisitedComparisonError" xml:space="preserve">
-                <value>Current contender not visited princess!</value>
+        <value>Current contender not visited princess!</value>
+    </data>
+    <data name="WrongAttemptNameError" xml:space="preserve">
+        <value>No attempt in db with this name: wrong attempt!</value>
+    </data>
+    <data name="WrongAttemptName" xml:space="preserve">
+        <value>wrong attempt</value>
+    </data>
+    <data name="NullAttemptNameError" xml:space="preserve">
+        <value>Attempt name should be not null!</value>
+    </data>
+    <data name="ContenderCount" xml:space="preserve">
+        <value>100</value>>
     </data>
 </root>
