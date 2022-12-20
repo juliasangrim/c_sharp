@@ -5,7 +5,7 @@ using PrincessChoice.Context;
 
 namespace PrincessChoiceTest;
 
-public class WordGeneratorTest
+public class WorldGeneratorTest
 {
     private PostgresDbContext _postgresDbContext;
     [SetUp]
