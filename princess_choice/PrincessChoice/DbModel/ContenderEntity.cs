@@ -1,7 +1,7 @@
 namespace PrincessChoice.DbModel;
 
 /// <summary>
-///DTO for contender. 
+///Entity for contender. 
 /// </summary>
 public class ContenderEntity
 {
@@ -9,4 +9,6 @@ public class ContenderEntity
     public string? Name { get; set; }
     public int Value { get; set; }
     public int SequenceNumber { get; set; }
+
+    public PrinceAttemptEntity AttemptEntity { get; set; }
 }

@@ -69,15 +69,6 @@ namespace PrincessChoiceTest {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &gt;.
-        /// </summary>
-        internal static string ContenderCount {
-            get {
-                return ResourceManager.GetString("ContenderCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Current contender not visited princess!.
         /// </summary>
         internal static string NotVisitedComparisonError {

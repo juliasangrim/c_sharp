@@ -45,6 +45,9 @@ public class OptimalStrategy : IStrategy
     /// otherwise return null.</returns>
     public void BestContender()
     {
+        _bestContender = null;
+        _contenderCount = 0;
+        _friend.ForgetAllPastContenders();
         _bound = (int)(_hall.CountContender() / Math.E);
         var currContender = _hall.NextContender();
         while (currContender != null)

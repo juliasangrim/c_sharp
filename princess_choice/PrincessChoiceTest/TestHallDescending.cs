@@ -4,10 +4,11 @@ namespace PrincessChoiceTest;
 
 public class TestHallDescending : Hall
 {
+    private const int ContenderCount = 100;
+    
     public override void CallNextGroup(string? attemptName)
     {
-        var contenderCount = int.Parse(PrincessResource.ContenderCount);
-        for (var i = contenderCount; i >= 1; --i)
+        for (var i = ContenderCount; i >= 1; --i)
         {
             _allContenders.Add(new Contender(i.ToString(), i));
         }

@@ -4,17 +4,18 @@ namespace PrincessChoiceTest;
 
 public class TestHallFirstContenderInSecondPartWithBiggestValue : Hall
 {
+    private const int ContenderCount = 100;
+    
     public override void CallNextGroup(string? attemptName)
     {
-        var contenderCount = int.Parse(PrincessResource.ContenderCount);
-        for (var i = 1; i <= contenderCount; ++i)
+        for (var i = 1; i <= ContenderCount; ++i)
         {
             _allContenders.Add(new Contender(i.ToString(), i));
         }
 
-        var bound = (int)(contenderCount / Math.E);
+        var bound = (int)(ContenderCount / Math.E);
         var contenderWithBiggestValueIndex =
-            _allContenders.FindIndex(0, contender => contender.Value == contenderCount);
+            _allContenders.FindIndex(0, contender => contender.Value == ContenderCount);
 
         (_allContenders[contenderWithBiggestValueIndex], _allContenders[bound]) =
             (_allContenders[bound], _allContenders[contenderWithBiggestValueIndex]);

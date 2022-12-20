@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PrincessChoice.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateTableAttempts : Migration
+    public partial class CreateAttempts : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,22 +33,23 @@ namespace PrincessChoice.Migrations
                     Name = table.Column<string>(type: "text", nullable: true),
                     Value = table.Column<int>(type: "integer", nullable: false),
                     SequenceNumber = table.Column<int>(type: "integer", nullable: false),
-                    PrinceAttemptEntityId = table.Column<int>(type: "integer", nullable: true)
+                    AttemptEntityId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contender", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contender_PrinceAttempt_PrinceAttemptEntityId",
-                        column: x => x.PrinceAttemptEntityId,
+                        name: "FK_Contender_PrinceAttempt_AttemptEntityId",
+                        column: x => x.AttemptEntityId,
                         principalTable: "PrinceAttempt",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contender_PrinceAttemptEntityId",
+                name: "IX_Contender_AttemptEntityId",
                 table: "Contender",
-                column: "PrinceAttemptEntityId");
+                column: "AttemptEntityId");
         }
 
         /// <inheritdoc />

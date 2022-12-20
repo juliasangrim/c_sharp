@@ -31,24 +31,24 @@ public class HallDb : IHall
     /// <summary>
     /// Generate new group of 100 contenders.
     /// </summary>
-    public void CallNextGroup(string? attemptName)
+    public async void CallNextGroup(string? attemptName)
     {
-        if (attemptName != null)
-        {
-            var princeAttemptEntity = _postgresDb.PrinceAttempt
-                .Include(c => c.Contenders)
-                .FirstOrDefault(a => a.AttemptName == attemptName);
-            if (princeAttemptEntity == null)
-            {
-                throw new ArgumentException($"No attempt in db with this name: {attemptName}!");
-            }
-
-            _allContenders = ContendersListMapper.Map(princeAttemptEntity.Contenders);
-        }
-        else
+        if (attemptName == null)
         {
             throw new ArgumentException("Attempt name should be not null!");
         }
+
+        var princeAttemptEntity = _postgresDb.PrinceAttempt
+            .Include(c => c.Contenders)
+            .FirstOrDefaultAsync(a => a.AttemptName == attemptName);
+        
+        if (princeAttemptEntity.Result == null)
+        {
+            throw new ArgumentException($"No attempt in db with this name: {attemptName}!");
+        }
+
+        _allContenders = ContendersListMapper.Map(princeAttemptEntity.Result.Contenders);
+
         _enumerator = _allContenders.GetEnumerator();
     }
 
@@ -60,7 +60,7 @@ public class HallDb : IHall
     {
         return _enumerator.MoveNext() ? _enumerator.Current : null;
     }
-    
+
     /// <summary>
     /// Get amount of contenders.
     /// </summary>

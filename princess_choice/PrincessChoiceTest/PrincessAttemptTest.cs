@@ -15,6 +15,7 @@ public class PrincessAttemptTest
     private IFriend _friend;
     private PostgresDbContext _postgresDbContext;
     private readonly ILogger<Princess> _logger = Substitute.For<ILogger<Princess>>();
+    private const int ContenderCount = 100;
 
     [SetUp]
     public void SetUp()
@@ -29,8 +30,7 @@ public class PrincessAttemptTest
     private List<Contender> GenerateContendersAscending()
     {
         var contenders = new List<Contender>();
-        var contenderCount = int.Parse(PrincessResource.ContenderCount);
-        for (var i = 1; i <= contenderCount; ++i)
+        for (var i = 1; i <= ContenderCount; ++i)
         {
             contenders.Add(new Contender(i.ToString(), i));
         }

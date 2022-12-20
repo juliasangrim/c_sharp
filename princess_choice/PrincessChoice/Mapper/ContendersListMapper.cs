@@ -12,21 +12,8 @@ public static class ContendersListMapper
     /// <returns>List of app entities.</returns>
     public static List<Contender> Map(List<ContenderEntity> contenderEntities)
     {
-        var listMapContenders = new List<Contender>(contenderEntities.Count);
-        foreach (var contenderEntity in contenderEntities)
-        {
-            var contender = new Contender(contenderEntity.Name, contenderEntity.Value);
-            if (contenderEntity.SequenceNumber < contenderEntities.Count)
-            {
-                listMapContenders.Insert(contenderEntity.SequenceNumber, contender);
-            }
-            else
-            {
-                throw new ArgumentException("List of contenders not full.");
-            }
-        }
-
-        return listMapContenders;
+        return contenderEntities.OrderBy(ce => ce.SequenceNumber)
+            .Select(ce => new Contender(ce.Name, ce.Value)).ToList();
     }
 
     /// <summary>

@@ -12,7 +12,7 @@ public static class WorldGenerator
     /// </summary>
     /// <param name="db">Db, where attempts are generated.</param>
     /// <param name="attemptCount">Amount of generating attempts.</param>
-    public static void Generate(PostgresDbContext db, int attemptCount)
+    public static async void Generate(PostgresDbContext db, int attemptCount)
     {
         for (int i = 0; i < attemptCount; i++)
         {
@@ -24,6 +24,6 @@ public static class WorldGenerator
             };
             db.PrinceAttempt.Add(attempt);
         }
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 }

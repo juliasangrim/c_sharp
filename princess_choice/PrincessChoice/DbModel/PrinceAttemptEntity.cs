@@ -1,7 +1,7 @@
 namespace PrincessChoice.DbModel;
 
 /// <summary>
-///DTO for attempt. 
+///Entity for attempt. 
 /// </summary>
 public class PrinceAttemptEntity
 {
