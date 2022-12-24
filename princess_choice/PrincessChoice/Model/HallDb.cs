@@ -31,7 +31,7 @@ public class HallDb : IHall
     /// <summary>
     /// Generate new group of 100 contenders.
     /// </summary>
-    public async void CallNextGroup(string? attemptName)
+    public void CallNextGroup(string? attemptName)
     {
         if (attemptName == null)
         {

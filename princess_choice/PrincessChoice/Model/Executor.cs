@@ -56,7 +56,7 @@ public class Executor : IHostedService
                     var attemptName = _attemptConfig.AttemptName;
                     if (attemptName == null)
                     {
-                        RunAllAttempt();
+                        RunAllAttempt().Wait(cancellationToken);
                     }
                     else
                     {
@@ -84,11 +84,11 @@ public class Executor : IHostedService
     /// <summary>
     /// Run all attempts in db.
     /// </summary>
-    private async void RunAllAttempt()
+    private async Task RunAllAttempt()
     {
-        var attempts = _postgresDb.PrinceAttempt.Include(c => c.Contenders).ToListAsync();
-        var sum = attempts.Result.Sum(attempt => _princess.CountHappy(attempt.AttemptName));
-        _writer.Write($"Average happiness for {attempts.Result.Count} attempts: {(double)sum / attempts.Result.Count}");
+        var attempts = await _postgresDb.PrinceAttempt.Include(c => c.Contenders).ToListAsync();
+        var sum = attempts.Sum(attempt => _princess.CountHappy(attempt.AttemptName));
+        _writer.Write($"Average happiness for {attempts.Count} attempts: {(double)sum / attempts.Count}");
     }
 
     /// <summary>
