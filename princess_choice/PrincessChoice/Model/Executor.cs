@@ -48,7 +48,7 @@ public class Executor : IHostedService
     {
         _lifetime.ApplicationStarted.Register(() =>
         {
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 try
                 {
@@ -56,7 +56,7 @@ public class Executor : IHostedService
                     var attemptName = _attemptConfig.AttemptName;
                     if (attemptName == null)
                     {
-                        RunAllAttempt().Wait(cancellationToken);
+                        await RunAllAttempt();
                     }
                     else
                     {
