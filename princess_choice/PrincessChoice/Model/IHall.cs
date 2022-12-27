@@ -17,5 +17,5 @@ public interface IHall
     /// <summary>
     /// Generate new group of 100 contenders.
     /// </summary>
-    void CallNextGroup(string? attemptName);
+    Task CallNextGroup(string? attemptName);
 }

@@ -60,7 +60,7 @@ public class Executor : IHostedService
                     }
                     else
                     {
-                        RunAttempt(attemptName);
+                        await RunAttempt(attemptName);
                     }
                 }
                 catch (Exception ex)
@@ -87,7 +87,10 @@ public class Executor : IHostedService
     private async Task RunAllAttempt()
     {
         var attempts = await _postgresDb.PrinceAttempt.Include(c => c.Contenders).ToListAsync();
-        var sum = attempts.Sum(attempt => _princess.CountHappy(attempt.AttemptName));
+        var sum = 0;
+        foreach (var attempt in attempts) {
+            sum +=  await _princess.CountHappy(attempt.AttemptName);
+        }
         _writer.Write($"Average happiness for {attempts.Count} attempts: {(double)sum / attempts.Count}");
     }
 
@@ -95,9 +98,9 @@ public class Executor : IHostedService
     /// Run attempt with specified name.
     /// </summary>
     /// <param name="attemptName">Attempt name.</param>
-    private void RunAttempt(string attemptName)
+    private async Task RunAttempt(string attemptName)
     {
-        var happiness = _princess.CountHappy(attemptName);
+        var happiness = await _princess.CountHappy(attemptName);
         _writer.Write($"Happiness for {attemptName} attempts: {happiness}");
     }
 }

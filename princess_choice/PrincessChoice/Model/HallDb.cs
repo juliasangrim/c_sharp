@@ -31,23 +31,23 @@ public class HallDb : IHall
     /// <summary>
     /// Generate new group of 100 contenders.
     /// </summary>
-    public void CallNextGroup(string? attemptName)
+    public async Task CallNextGroup(string? attemptName)
     {
         if (attemptName == null)
         {
             throw new ArgumentException("Attempt name should be not null!");
         }
 
-        var princeAttemptEntity = _postgresDb.PrinceAttempt
+        var princeAttemptEntity = await (_postgresDb.PrinceAttempt
             .Include(c => c.Contenders)
-            .FirstOrDefaultAsync(a => a.AttemptName == attemptName);
+            .FirstOrDefaultAsync(a => a.AttemptName == attemptName));
         
-        if (princeAttemptEntity.Result == null)
+        if (princeAttemptEntity == null)
         {
             throw new ArgumentException($"No attempt in db with this name: {attemptName}!");
         }
 
-        _allContenders = ContendersListMapper.Map(princeAttemptEntity.Result.Contenders);
+        _allContenders = ContendersListMapper.Map(princeAttemptEntity.Contenders);
 
         _enumerator = _allContenders.GetEnumerator();
     }

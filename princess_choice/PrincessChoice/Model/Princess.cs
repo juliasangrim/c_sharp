@@ -36,9 +36,9 @@ public class Princess
     /// returns 10 - if the princess did not choose the prince,
     /// returns from 100, 99, ... 51 - if princess chose the 1st good prince,
     /// 2nd good prince ... 50th best prince. </returns>
-    public int CountHappy(string? attemptName)
+    public async Task<int> CountHappy(string? attemptName)
     {
-        _hall.CallNextGroup(attemptName);
+        await _hall.CallNextGroup(attemptName);
         _strategy.BestContender();
         var happiness = HappinessIfAlone;
         if (_strategy.BestContenderValue() == null)
