@@ -74,7 +74,7 @@ public class PrincessAttemptTest
         var princess = new Princess(hall, strategy, _logger);
 
         var act = () => princess.CountHappy(PrincessResource.WrongAttemptName);
-        act.Should().Throw<ArgumentException>()
+        act.Should().ThrowAsync<ArgumentException>()
             .WithMessage(PrincessResource.WrongAttemptNameError);
     }
 
@@ -95,7 +95,7 @@ public class PrincessAttemptTest
         var princess = new Princess(hall, strategy, _logger);
 
         var act = () => princess.CountHappy(null);
-        act.Should().Throw<ArgumentException>()
+        act.Should().ThrowAsync<ArgumentException>()
             .WithMessage(PrincessResource.NullAttemptNameError);
     }
 }
