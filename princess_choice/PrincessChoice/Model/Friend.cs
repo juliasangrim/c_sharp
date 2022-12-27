@@ -10,9 +10,18 @@ public class Friend : IFriend
     /// <summary>
     /// The list of passed contenders.
     /// </summary>
-    private readonly List<Contender> _passedContenders;
+    private List<Contender> _passedContenders;
 
     public Friend()
+    {
+        _lastBestContender = null;
+        _passedContenders = new List<Contender>();
+    }
+
+    /// <summary>
+    /// Delete all contenders in friend list.
+    /// </summary>
+    public void ForgetAllPastContenders()
     {
         _lastBestContender = null;
         _passedContenders = new List<Contender>();

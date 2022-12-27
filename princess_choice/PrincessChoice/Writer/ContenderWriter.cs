@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace PrincessChoice.Writer;
 
@@ -18,7 +17,7 @@ public class ContenderWriter : IWriter
             throw new ArgumentException("File name invalid.");
         }
     }
-    
+
     /// <summary>
     /// Write content in file.
     /// </summary>

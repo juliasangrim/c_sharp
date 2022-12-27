@@ -7,6 +7,11 @@ public interface IFriend
     /// </summary>
     /// <param name="passedContender"> Contender rejected by the princess.</param>
     void AddPassedContender(Contender passedContender);
+    
+    /// <summary>
+    /// Delete all contenders in friend list.
+    /// </summary>
+    void ForgetAllPastContenders();
 
     /// <summary>
     /// Detect the best contender.

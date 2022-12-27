@@ -60,11 +60,47 @@ namespace PrincessChoiceTest {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MyAttemptName.
+        /// </summary>
+        internal static string AttemptName {
+            get {
+                return ResourceManager.GetString("AttemptName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current contender not visited princess!.
         /// </summary>
         internal static string NotVisitedComparisonError {
             get {
                 return ResourceManager.GetString("NotVisitedComparisonError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempt name should be not null!.
+        /// </summary>
+        internal static string NullAttemptNameError {
+            get {
+                return ResourceManager.GetString("NullAttemptNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to wrong attempt.
+        /// </summary>
+        internal static string WrongAttemptName {
+            get {
+                return ResourceManager.GetString("WrongAttemptName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No attempt in db with this name: wrong attempt!.
+        /// </summary>
+        internal static string WrongAttemptNameError {
+            get {
+                return ResourceManager.GetString("WrongAttemptNameError", resourceCulture);
             }
         }
     }

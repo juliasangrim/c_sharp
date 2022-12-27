@@ -8,7 +8,8 @@ public class GeneratorTest
     [Test]
     public void Generate_UniqueNames()
     {
-        IEnumerable<string> contenders = ContenderNameGenerator.GenerateNames();
-        contenders.Should().OnlyHaveUniqueItems();
+        var contenders = ContenderGenerator.GenerateContenders();
+        var nameList = contenders.ConvertAll(c => c.Name);
+        nameList.Should().OnlyHaveUniqueItems();
     }
 }

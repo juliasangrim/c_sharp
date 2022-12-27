@@ -1,8 +1,10 @@
-﻿using PrincessChoice.Generator;
+using Microsoft.EntityFrameworkCore;
+using PrincessChoice.Context;
+using PrincessChoice.Mapper;
 
 namespace PrincessChoice.Model;
 
-public class Hall : IHall
+public class HallDb : IHall
 {
     /// <summary>
     /// List of all waiting contenders.
@@ -14,33 +16,39 @@ public class Hall : IHall
     /// </summary>
     protected List<Contender>.Enumerator _enumerator;
 
-    public Hall()
+    /// <summary>
+    /// Connection to PostgresDB.
+    /// </summary>
+    private PostgresDbContext _postgresDb;
+
+    public HallDb(PostgresDbContext postgresDb)
     {
+        _postgresDb = postgresDb;
         _allContenders = new List<Contender>();
         _enumerator = _allContenders.GetEnumerator();
     }
 
     /// <summary>
-    /// Shuffle list of waiting contenders.
-    /// </summary>
-    private void MixContenders()
-    {
-        var random = new Random(DateTime.Now.Millisecond);
-        _allContenders = _allContenders.OrderBy(_ => random.Next()).ToList();
-    }
-
-    /// <summary>
     /// Generate new group of 100 contenders.
     /// </summary>
-    public virtual void CallNextGroup()
+    public async Task CallNextGroup(string? attemptName)
     {
-        var contenderNames = ContenderNameGenerator.GenerateNames();
-        for (var i = 1; i <= contenderNames.Count; ++i)
+        if (attemptName == null)
         {
-            _allContenders.Add(new Contender(contenderNames[i - 1], i));
+            throw new ArgumentException("Attempt name should be not null!");
         }
+
+        var princeAttemptEntity = await (_postgresDb.PrinceAttempt
+            .Include(c => c.Contenders)
+            .FirstOrDefaultAsync(a => a.AttemptName == attemptName));
         
-        MixContenders();
+        if (princeAttemptEntity == null)
+        {
+            throw new ArgumentException($"No attempt in db with this name: {attemptName}!");
+        }
+
+        _allContenders = ContendersListMapper.Map(princeAttemptEntity.Contenders);
+
         _enumerator = _allContenders.GetEnumerator();
     }
 
